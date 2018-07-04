@@ -1,13 +1,16 @@
 # hi-benchmarks
-ROS benchmark platform
+
 
 
 ```
 I see the other side, that too often too many people would do something against their interests
+
 --- Donald Knuth
+
 ```
 
-
+Hi-Benchmarks is a *framework* dedicated  designed  for monitoring distributed ROS system *even* on cheap computation architecture.
+ 
 
 
 # Design goals
