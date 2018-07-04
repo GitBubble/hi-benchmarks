@@ -1,4 +1,4 @@
-# hi-benchmarks
+# Hi-Benchmarks
 
 
 
