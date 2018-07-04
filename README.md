@@ -4,11 +4,11 @@ ROS benchmark platform
 
 ```
 I see the other side, that too often too many people would do something against their interests
-                                          --- Donald Knuth
+--- Donald Knuth
 ```
 
 
-![design demo](./design/asset/framework_demo.png)
+
 
 # Design goals
 
