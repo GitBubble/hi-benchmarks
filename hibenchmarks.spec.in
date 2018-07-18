@@ -1,0 +1,300 @@
+# SPDX-License-Identifier: GPL-3.0+
+%global contentdir %{_datadir}/hibenchmarks
+
+# This is temporary and should eventually be resolved. This bypasses
+# the default rhel __os_install_post which throws a python compile
+# error.
+%global __os_install_post %{nil}
+
+#
+# Conditional build:
+%bcond_without  systemd  # systemd
+%bcond_with     nfacct   # build with nfacct plugin
+%bcond_with     freeipmi # build with freeipmi plugin
+%bcond_with     netns    # build with netns support (cgroup-network)
+
+%if 0%{?fedora} || 0%{?rhel} >= 7 || 0%{?suse_version} >= 1140
+%else
+%undefine	with_systemd
+%undefine	with_netns
+%endif
+
+%if %{with systemd}
+%if 0%{?suse_version}
+%global hibenchmarks_initd_buildrequires \
+BuildRequires: systemd-rpm-macros \
+%{nil}
+%global hibenchmarks_initd_requires \
+%{?systemd_requires} \
+%{nil}
+%global hibenchmarks_init_post %service_add_post hibenchmarks.service
+%global hibenchmarks_init_preun %service_del_preun hibenchmarks.service
+%global hibenchmarks_init_postun %service_del_postun hibenchmarks.service
+%else
+%global hibenchmarks_initd_buildrequires \
+BuildRequires: systemd
+%global hibenchmarks_initd_requires \
+Requires(preun):  systemd-units \
+Requires(postun): systemd-units \
+Requires(post):   systemd-units \
+%{nil}
+%global hibenchmarks_init_post %systemd_post hibenchmarks.service
+%global hibenchmarks_init_preun %systemd_preun hibenchmarks.service
+%global hibenchmarks_init_postun %systemd_postun_with_restart hibenchmarks.service
+%endif
+%else
+%global hibenchmarks_initd_buildrequires %{nil}
+%global hibenchmarks_initd_requires \
+Requires(post):   chkconfig \
+%{nil}
+%global hibenchmarks_init_post \
+/sbin/chkconfig --add hibenchmarks \
+%{nil}
+%global hibenchmarks_init_preun %{nil} \
+if [ $1 = 0 ]; then \
+        /sbin/service hibenchmarks stop > /dev/null 2>&1 \
+        /sbin/chkconfig --del hibenchmarks \
+fi \
+%{nil}
+%global hibenchmarks_init_postun %{nil} \
+if [ $1 != 0 ]; then \
+        /sbin/service hibenchmarks condrestart 2>&1 > /dev/null \
+fi \
+%{nil}
+%endif
+
+%if 0%{?_fedora}
+%global hibenchmarks_recommends \
+Recommends:	curl \
+Recommends:	iproute-tc \
+Recommends:	lm_sensors \
+Recommends:	nmap-ncat \
+Recommends:	nodejs \
+Recommends:	python \
+Recommends:	PyYAML \
+Recommends:	python2-PyMySQL \
+Recommends:	python2-psycopg2 \
+%{nil}
+%else
+%global hibenchmarks_recommends %{nil}
+%endif
+
+Summary:	Real-time performance monitoring, done right
+Name:		@PACKAGE_NAME@
+Version:	@PACKAGE_RPM_VERSION@
+Release:	1%{?dist}
+License:	GPLv3+
+Group:		Applications/System
+Source0:	https://github.com/firehol/%{name}/releases/download/v@PACKAGE_VERSION@/%{name}-@PACKAGE_VERSION@.tar.xz
+URL:		http://my-hibenchmarks.io
+BuildRequires:	pkgconfig
+BuildRequires:	xz
+BuildRequires:	zlib-devel
+BuildRequires:	libuuid-devel
+Requires:	zlib
+Requires:	libuuid
+
+# Packages can be found in the EPEL repo
+%if %{with nfacct}
+BuildRequires:	libmnl-devel
+BuildRequires:	libnetfilter_acct-devel
+Requires: libmnl
+Requires: libnetfilter_acct
+%endif
+
+%if %{with freeipmi}
+BuildRequires:	freeipmi-devel
+Requires: freeipmi
+%endif
+
+Requires(pre): /usr/sbin/groupadd
+Requires(pre): /usr/sbin/useradd
+Requires(post): libcap
+
+%{hibenchmarks_initd_buildrequires}
+%{hibenchmarks_recommends}
+%{hibenchmarks_initd_requires}
+
+%description
+hibenchmarks is the fastest way to visualize metrics. It is a resource
+efficient, highly optimized system for collecting and visualizing any
+type of realtime timeseries data, from CPU usage, disk activity, SQL
+queries, API calls, web site visitors, etc.
+
+hibenchmarks tries to visualize the truth of now, in its greatest detail,
+so that you can get insights of what is happening now and what just
+happened, on your systems and applications.
+
+%prep
+%setup -q -n @PACKAGE_NAME@-@PACKAGE_VERSION@
+
+%build
+%configure \
+	--with-zlib \
+	--with-math \
+	%{?with_nfacct:--enable-plugin-nfacct} \
+	%{?with_freeipmi:--enable-plugin-freeipmi} \
+	--with-user=hibenchmarks
+%{__make} %{?_smp_mflags}
+
+%install
+rm -rf "${RPM_BUILD_ROOT}"
+%{__make} %{?_smp_mflags} DESTDIR="${RPM_BUILD_ROOT}" install
+
+find "${RPM_BUILD_ROOT}" -name .keep -delete
+
+install -m 644 -p system/hibenchmarks.conf "${RPM_BUILD_ROOT}%{_sysconfdir}/%{name}"
+install -m 755 -d "${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d"
+install -m 644 -p system/hibenchmarks.logrotate "${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d/%{name}"
+
+%if %{with systemd}
+install -m 755 -d "${RPM_BUILD_ROOT}%{_unitdir}"
+install -m 644 -p system/hibenchmarks.service "${RPM_BUILD_ROOT}%{_unitdir}/hibenchmarks.service"
+%else
+# install SYSV init stuff
+install -d "${RPM_BUILD_ROOT}/etc/rc.d/init.d"
+install -m 755 system/hibenchmarks-init-d \
+        "${RPM_BUILD_ROOT}/etc/rc.d/init.d/hibenchmarks"
+%endif
+
+%pre
+getent group hibenchmarks >/dev/null || groupadd -r hibenchmarks
+getent group docker >/dev/null || groupadd -r docker
+getent passwd hibenchmarks >/dev/null || \
+  useradd -r -g hibenchmarks -G docker -s /sbin/nologin \
+    -d %{contentdir} -c "hibenchmarks" hibenchmarks
+
+%post
+%{hibenchmarks_init_post}
+
+%preun
+%{hibenchmarks_init_preun}
+
+%postun
+%{hibenchmarks_init_postun}
+
+%clean
+rm -rf "${RPM_BUILD_ROOT}"
+
+%files
+%doc README.md
+%defattr(-,root,root)
+
+%dir %{_sysconfdir}/%{name}
+
+%config(noreplace) %{_sysconfdir}/%{name}/*.conf
+%config(noreplace) %{_sysconfdir}/%{name}/charts.d/*.conf
+%config(noreplace) %{_sysconfdir}/%{name}/health.d/*.conf
+#%%config(noreplace) %{_sysconfdir}/%{name}/node.d/*.conf
+%config(noreplace) %{_sysconfdir}/%{name}/python.d/*.conf
+%config(noreplace) %{_sysconfdir}/%{name}/statsd.d/*.conf
+%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
+
+# To be eventually moved to %%_defaultdocdir
+%{_sysconfdir}/%{name}/node.d/*.md
+%{_libexecdir}/%{name}
+%{_sbindir}/%{name}
+
+%caps(cap_dac_read_search,cap_sys_ptrace=ep) %attr(0550,root,hibenchmarks) %{_libexecdir}/%{name}/plugins.d/apps.plugin
+
+%if %{with netns}
+# cgroup-network detects the network interfaces of CGROUPs
+# it must be able to use setns() and run cgroup-network-helper.sh as root
+# the helper script reads /proc/PID/fdinfo/* files, runs virsh, etc.
+%caps(cap_setuid=ep) %attr(4550,root,hibenchmarks) %{_libexecdir}/%{name}/plugins.d/cgroup-network
+%attr(0550,root,root) %{_libexecdir}/%{name}/plugins.d/cgroup-network-helper.sh
+%endif
+
+%if %{with freeipmi}
+%caps(cap_setuid=ep) %attr(4550,root,hibenchmarks) %{_libexecdir}/%{name}/plugins.d/freeipmi.plugin
+%endif
+
+%attr(0770,hibenchmarks,hibenchmarks) %dir %{_localstatedir}/cache/%{name}
+%attr(0770,hibenchmarks,hibenchmarks) %dir %{_localstatedir}/log/%{name}
+%attr(0770,hibenchmarks,hibenchmarks) %dir %{_localstatedir}/lib/%{name}
+
+%dir %{_datadir}/%{name}
+%dir %{_sysconfdir}/%{name}/health.d
+%dir %{_sysconfdir}/%{name}/python.d
+%dir %{_sysconfdir}/%{name}/charts.d
+%dir %{_sysconfdir}/%{name}/node.d
+
+%if %{with systemd}
+%{_unitdir}/hibenchmarks.service
+%else
+%{_sysconfdir}/rc.d/init.d/hibenchmarks
+%endif
+
+# Enforce 0644 for files and 0755 for directories
+# for the hibenchmarks web directory
+%defattr(0644,root,hibenchmarks,0755)
+%{_datadir}/%{name}/web
+
+%changelog
+* Tue Mar 27 2018 Costa Tsaousis <costa@tsaousis.gr> - 1.10.0-1
+  Please check full changelog at github.
+  https://github.com/firehol/hibenchmarks/releases
+* Sun Dec 17 2017 Costa Tsaousis <costa@tsaousis.gr> - 1.9.0-1
+  Please check full changelog at github.
+  https://github.com/firehol/hibenchmarks/releases
+* Sun Sep 17 2017 Costa Tsaousis <costa@tsaousis.gr> - 1.8.0-1
+  This is mainly a bugfix release.
+  Please check full changelog at github.
+* Sun Jul 16 2017 Costa Tsaousis <costa@tsaousis.gr> - 1.7.0-1
+- hibenchmarks is now a fully featured statsd server
+- new installation options
+- metrics streaming and replication improvements
+- backends improvements - prometheus support rewritten
+- hibenchmarks now monitors ZFS (on Linux and FreeBSD)
+- hibenchmarks now monitors ElasticSearch
+- hibenchmarks now monitors RabbitMQ
+- hibenchmarks now monitors Go applications (via expvar)
+- hibenchmarks now monitors ipfw (on FreeBSD 11)
+- hibenchmarks now monitors samba
+- hibenchmarks now monitors squid logs
+- hibenchmarks dashboard loading times have been improved significantly
+- hibenchmarks alarms now support custom hooks
+- dozens more improvements and bug fixes
+* Mon Mar 20 2017 Costa Tsaousis <costa@tsaousis.gr> - 1.6.0-1
+- central hibenchmarks
+- monitoring ephemeral nodes
+- monitoring ephemeral containers and VM guests
+- apps.plugin ported for FreeBSD
+- web_log plugin
+- JSON backends
+- IPMI monitoring
+- several new and improved plugins
+- several new and improved alarms and notifications
+- dozens more improvements and bug fixes
+* Sun Jan 22 2017 Costa Tsaousis <costa@tsaousis.gr> - 1.5.0-1
+- FreeBSD, MacOS, FreeNAS
+- Backends support
+- dozens of new and improved plugins
+- dozens of new and improved alarms and notification methods
+* Tue Oct 4 2016 Costa Tsaousis <costa@tsaousis.gr> - 1.4.0-1
+- the fastest hibenchmarks ever (with a better look too)!
+- improved IoT and containers support!
+- alarms improved in almost every way!
+- Several more improvements, new features and bugfixes.
+* Sun Aug 28 2016 Costa Tsaousis <costa@tsaousis.gr> - 1.3.0-1
+- hibenchmarks now has health monitoring
+- hibenchmarks now generates badges
+- hibenchmarks now has python plugins
+- Several more improvements, new features and bugfixes.
+* Tue Jul 26 2016 Jason Barnett <J@sonBarnett.com> - 1.2.0-2
+- Added support for EL6
+- Corrected several Requires statements
+- Changed default to build without nfacct
+- Removed --docdir from configure
+* Mon May 16 2016 Costa Tsaousis <costa@tsaousis.gr> - 1.2.0-1
+- hibenchmarks is now 30% faster.
+- hibenchmarks now has a registry (my-hibenchmarks menu on the dashboard).
+- hibenchmarks now monitors Linux containers.
+- Several more improvements, new features and bugfixes.
+* Wed Apr 20 2016 Costa Tsaousis <costa@tsaousis.gr> - 1.1.0-1
+- Several new features (IPv6, SYNPROXY, Users, Users Groups).
+- A lot of bug fixes and optimizations.
+* Tue Mar 22 2016 Costa Tsaousis <costa@tsaousis.gr> - 1.0.0-1
+- First public release.
+* Sun Nov 15 2015 Alon Bar-Lev <alonbl@redhat.com> - 0.0.0-1
+- Initial add.

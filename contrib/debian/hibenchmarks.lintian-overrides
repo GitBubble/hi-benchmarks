@@ -1,0 +1,16 @@
+
+# See Debian policy 10.9. apps.plugin has extra capabilities, so don't let
+# normal users run it.
+hibenchmarks: non-standard-executable-perm usr/lib/*/hibenchmarks/plugins.d/apps.plugin 0754 != 0755
+
+
+# FontAwesome is at least in the fonts-font-awesome package, but this is
+# not available in wheezy. glyphicons-halflings-regular isn't currently in
+# a Debian package. Therefore don't complain about shipping them with hibenchmarks
+# for the time being.
+hibenchmarks: duplicate-font-file usr/share/hibenchmarks/fonts/*
+hibenchmarks: font-in-non-font-package usr/share/hibenchmarks/fonts/*
+
+# Files here are marked as conffiles so that local updates to the html files
+# isn't clobbered on upgrade.
+hibenchmarks: non-etc-file-marked-as-conffile var/lib/hibenchmarks/www/*

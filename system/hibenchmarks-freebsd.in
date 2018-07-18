@@ -1,0 +1,49 @@
+#!/bin/sh
+# SPDX-License-Identifier: GPL-3.0+
+
+. /etc/rc.subr
+
+name=hibenchmarks
+rcvar=hibenchmarks_enable
+
+pidfile="@localstatedir_POST@/run/hibenchmarks.pid"
+
+command="@sbindir_POST@/hibenchmarks"
+command_args="-P ${pidfile}"
+
+required_files="@sysconfdir_POST@/hibenchmarks/hibenchmarks.conf"
+
+start_precmd="hibenchmarks_prestart"
+stop_postcmd="hibenchmarks_poststop"
+
+extra_commands="reloadhealth savedb"
+
+reloadhealth_cmd="hibenchmarks_reloadhealth"
+savedb_cmd="hibenchmarks_savedb"
+
+hibenchmarks_prestart()
+{
+	return 0
+}
+
+hibenchmarks_poststop()
+{
+	return 0
+}
+
+hibenchmarks_reloadhealth()
+{
+    p=`cat ${pidfile}`
+    kill -USR2 ${p} && echo "Sent USR2 (reload health) to pid ${p}"
+    return 0
+}
+
+hibenchmarks_savedb()
+{
+    p=`cat ${pidfile}`
+    kill -USR2 ${p} && echo "Sent USR1 (save db) to pid ${p}"
+    return 0
+}
+
+load_rc_config $name
+run_rc_command "$1"

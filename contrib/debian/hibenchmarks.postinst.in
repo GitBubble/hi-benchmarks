@@ -1,0 +1,41 @@
+#! /bin/sh
+
+set -e
+
+case "$1" in
+  configure)
+        if [ -z "$2" ]; then
+          if ! getent group hibenchmarks >/dev/null; then
+              addgroup --quiet --system hibenchmarks
+          fi
+
+          if ! getent passwd hibenchmarks >/dev/null; then
+              adduser --quiet --system --ingroup hibenchmarks --home /var/lib/hibenchmarks --no-create-home hibenchmarks
+          fi
+
+          if ! dpkg-statoverride --list /var/lib/hibenchmarks >/dev/null 2>&1; then
+              dpkg-statoverride --update --add hibenchmarks hibenchmarks 0755 /var/lib/hibenchmarks
+          fi
+
+          if ! dpkg-statoverride --list /var/lib/hibenchmarks/www >/dev/null 2>&1; then
+              dpkg-statoverride --update --add root hibenchmarks 0755 /var/lib/hibenchmarks/www
+          fi
+
+          if ! dpkg-statoverride --list /var/cache/hibenchmarks >/dev/null 2>&1; then
+              dpkg-statoverride --update --add hibenchmarks hibenchmarks 0755 /var/cache/hibenchmarks
+          fi
+
+        fi
+
+        dpkg-statoverride --update --add --force root hibenchmarks 0775 /var/lib/hibenchmarks/registry
+        chown -R root:hibenchmarks /usr/share/hibenchmarks/*
+        chown -R root:hibenchmarks /usr/lib/@DEB_HOST_MULTIARCH@/hibenchmarks/plugins.d
+        setcap cap_dac_read_search,cap_sys_ptrace+ep /usr/lib/@DEB_HOST_MULTIARCH@/hibenchmarks/plugins.d/apps.plugin
+
+#PERMS#
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

@@ -1,0 +1,45 @@
+# SPDX-License-Identifier: GPL-3.0+
+[Unit]
+Description=Real time performance monitoring
+After=network.target httpd.service squid.service nfs-server.service mysqld.service mysql.service named.service postfix.service chronyd.service
+
+[Service]
+Type=simple
+User=hibenchmarks
+Group=hibenchmarks
+RuntimeDirectory=hibenchmarks
+RuntimeDirectoryMode=0775
+ExecStart=@sbindir_POST@/hibenchmarks -P /run/hibenchmarks/hibenchmarks.pid -D
+ExecStartPre=/bin/mkdir -p @localstatedir_POST@/cache/hibenchmarks
+ExecStartPre=/bin/chown -R hibenchmarks:hibenchmarks @localstatedir_POST@/cache/hibenchmarks
+PermissionsStartOnly=true
+
+# saving a big db on slow disks may need some time
+TimeoutStopSec=60
+
+# restart hibenchmarks if it crashes
+Restart=on-failure
+RestartSec=30
+
+# The minimum hibenchmarks Out-Of-Memory (OOM) score.
+# hibenchmarks (via [global].OOM score in hibenchmarks.conf) can only increase the value set here.
+# To decrease it, set the minimum here and set the same or a higher value in hibenchmarks.conf.
+# Valid values: -1000 (never kill hibenchmarks) to 1000 (always kill hibenchmarks).
+#OOMScoreAdjust=0
+
+# By default hibenchmarks switches to scheduling policy idle, which makes it use CPU, only
+# when there is spare available.
+# Valid policies: other (the system default) | batch | idle | fifo | rr
+#CPUSchedulingPolicy=other
+
+# This sets the maximum scheduling priority hibenchmarks can set (for policies: rr and fifo).
+# hibenchmarks (via [global].process scheduling priority in hibenchmarks.conf) can only lower this value.
+# Priority gets values 1 (lowest) to 99 (highest).
+#CPUSchedulingPriority=1
+
+# For scheduling policy 'other' and 'batch', this sets the lowest niceness of hibenchmarks.
+# hibenchmarks (via [global].process nice level in hibenchmarks.conf) can only increase the value set here.
+#Nice=0
+
+[Install]
+WantedBy=multi-user.target

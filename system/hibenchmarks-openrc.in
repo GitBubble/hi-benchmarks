@@ -1,0 +1,58 @@
+#!/sbin/openrc-run
+# SPDX-License-Identifier: GPL-3.0+
+
+# The user hibenchmarks is configured to run as.
+# If you edit its configuration file to set a different
+# user, set it here too, to have its files switch ownership
+: "${HIBENCHMARKS_OWNER:=hibenchmarks:hibenchmarks}"
+
+# The timeout in seconds to wait for hibenchmarks
+# to save its database on disk and exit.
+: "${HIBENCHMARKS_WAIT_EXIT_TIMEOUT:=60}"
+
+# When set to 1, if hibenchmarks does not exit in
+# HIBENCHMARKS_WAIT_EXIT_TIMEOUT, we will force it
+# to exit.
+: "${HIBENCHMARKS_FORCE_EXIT:=0}"
+
+# Netdata will use these services, only if they
+# are enabled to start.
+: "${HIBENCHMARKS_START_AFTER_SERVICES:=apache2 squid nginx mysql named opensips upsd hostapd postfix lm_sensors}"
+
+extra_started_commands="reload rotate save"
+pidfile="/run/hibenchmarks/hibenchmarks.pid"
+command="@sbindir_POST@/hibenchmarks"
+command_args="-P ${pidfile} ${HIBENCHMARKS_EXTRA_ARGS}"
+start_stop_daemon_args="-u ${HIBENCHMARKS_OWNER}"
+required_files="/etc/hibenchmarks/hibenchmarks.conf"
+if [ "${HIBENCHMARKS_FORCE_EXIT}" -eq 1 ]; then
+    retry="TERM/${HIBENCHMARKS_WAIT_EXIT_TIMEOUT}/KILL/1"
+else
+    retry="TERM/${HIBENCHMARKS_WAIT_EXIT_TIMEOUT}"
+fi
+
+depend() {
+    use logger
+    need net
+    after ${HIBENCHMARKS_START_AFTER_SERVICES}
+
+    checkpath -o ${HIBENCHMARKS_OWNER} -d @localstatedir_POST@/cache/hibenchmarks /run/hibenchmarks
+}
+
+reload() {
+    ebegin "Reloading Netdata"
+    start-stop-daemon --signal SIGUSR2 --pidfile "${pidfile}"
+    eend $? "Failed to reload Netdata"
+}
+
+rotate() {
+    ebegin "Logrotating Netdata"
+    start-stop-daemon --signal SIGHUP --pidfile "${pidfile}"
+    eend $? "Failed to logrotate Netdata"
+}
+
+save() {
+    ebegin "Saving Netdata database"
+    start-stop-daemon --signal SIGUSR1 --pidfile "${pidfile}"
+    eend $? "Failed to save Netdata database"
+}

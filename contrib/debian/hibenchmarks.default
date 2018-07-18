@@ -1,0 +1,5 @@
+# Extra arguments to pass to hibenchmarks
+#
+#EXTRA_OPTS=""
+#uncomment following line if you are building a wheezy-package
+#EXTRA_OPTS="-P /var/run/hibenchmarks.pid"

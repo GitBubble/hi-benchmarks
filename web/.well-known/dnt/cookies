@@ -1,0 +1,14 @@
+{
+  "tracking": "T",
+  "compliance": ["https://github.com/firehol/hibenchmarks/wiki/cookies#compliance"],
+  "qualifiers": "afc",
+  "controller": ["https://github.com/firehol/hibenchmarks/wiki/cookies#controller"],
+  "same-party": [
+    "my-hibenchmarks.io",
+    "myhibenchmarks.io",
+    "hibenchmarks.online",
+    "hibenchmarks.rocks",
+    "registry.my-hibenchmarks.io"
+  ],
+  "policy": "https://github.com/firehol/hibenchmarks/wiki/cookies#policy",
+}

@@ -1,0 +1,9 @@
+// SPDX-License-Identifier: GPL-3.0+
+#ifndef HIBENCHMARKS_PLUGIN_CHECKS_H
+#define HIBENCHMARKS_PLUGIN_CHECKS_H 1
+
+#ifdef HIBENCHMARKS_INTERNAL_CHECKS
+void *checks_main(void *ptr);
+#endif // HIBENCHMARKS_INTERNAL_CHECKS
+
+#endif /* HIBENCHMARKS_PLUGIN_PROC_H */
