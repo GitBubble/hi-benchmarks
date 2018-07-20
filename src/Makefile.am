@@ -43,7 +43,7 @@ plugins_PROGRAMS += cgroup-network
 endif
 
 hibenchmarks_SOURCES = \
-	adaptive_resortable_list.c \
+	util/adaptive_resortable_list.c \
 	adaptive_resortable_list.h \
 	appconfig.c \
 	appconfig.h \
@@ -149,29 +149,7 @@ hibenchmarks_SOURCES = \
 	web_server.h \
 	$(NULL)
 
-if FREEBSD
-hibenchmarks_SOURCES += \
-	plugin_freebsd.c \
-	plugin_freebsd.h \
-	freebsd_sysctl.c \
-	freebsd_getmntinfo.c \
-	freebsd_getifaddrs.c \
-	freebsd_devstat.c \
-	zfs_common.c \
-	zfs_common.h \
-	freebsd_kstat_zfs.c \
-	freebsd_ipfw.c \
-	$(NULL)
-else
-if MACOS
-hibenchmarks_SOURCES += \
-	plugin_macos.c \
-	plugin_macos.h \
-	macos_sysctl.c \
-	macos_mach_smi.c \
-	macos_fw.c \
-	$(NULL)
-else
+
 hibenchmarks_SOURCES += \
 	ipc.c \
 	ipc.h \
@@ -216,8 +194,7 @@ hibenchmarks_SOURCES += \
 	sys_fs_cgroup.c \
 	sys_fs_btrfs.c \
 	$(NULL)
-endif
-endif
+
 
 hibenchmarks_LDADD = \
 	$(OPTIONAL_MATH_LIBS) \
