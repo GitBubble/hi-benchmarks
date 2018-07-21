@@ -1,0 +1,120 @@
+.deps
+.libs
+
+*.o
+config.h.in
+Makefile.in
+*~
+.*.swp
+*.old
+*.log
+*.pyc
+
+Makefile
+aclocal.m4
+autom4te.cache
+compile
+config.guess
+config.h
+config.status
+config.sub
+configure
+depcomp
+install-sh
+libtool
+ltmain.sh
+missing
+stamp-h1
+netdata.spec
+
+# netdata binaries
+netdata
+apps.plugin
+freeipmi.plugin
+cgroup-network
+
+# netdata makeself archives
+*.tar.*
+*.run
+
+# netdata makeself downloads
+makeself/tmp/
+
+# coverity
+cov-int/
+netdata-coverity-analysis.tgz
+.coverity-token
+.coverity-build
+
+.cproject/
+.idea/
+.vscode/
+.project/
+.settings/
+README
+TODO.md
+conf.d/netdata.conf
+src/TODO.txt
+
+web/chart-info/
+web/control.html
+web/datasource.css
+web/gadget.xml
+web/index_new.html
+web/version.txt
+
+# related to karma/javascript/node
+/node_modules/
+/coverage/
+
+system/netdata-lsb
+system/netdata-openrc
+system/netdata-init-d
+system/netdata.logrotate
+system/netdata.service
+system/netdata.plist
+system/netdata-freebsd
+
+# installer generated files
+netdata-uninstaller.sh
+netdata-updater.sh
+
+# cmake files
+cmake-build-debug/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
+# jetbrains IDE
+.jetbrains*
+
+.DS_Store
+
+contrib/debian/changelog
+
+# converted diagrams
+diagrams/*.png
+diagrams/*.svg
+diagrams/*.atxt
+diagrams/plantuml.jar
+
+# cppcheck
+src/cppcheck-build/
+
+# debugging / profiling
+makeself/debug/
+profile/benchmark-dictionary
+profile/benchmark-registry
+profile/test-eval
+profile/benchmark-line-parsing
+profile/benchmark-procfile-parser
+profile/statsd-stress
+oprofile_data/
+vgcore.*
+callgrind.out.*
+gmon.out
+gmon.txt
+sitespeed-result/
+
+# tests and temp files
+python.d/python-modules-installer.sh
