@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: LGPL-3.0+
-#include "common.h"
+#include "include/common.h"
 
 /* ------------------------------------------------------------------------- */
 /*

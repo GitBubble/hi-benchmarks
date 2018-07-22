@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0+
 #define HIBENCHMARKS_HEALTH_INTERNALS
-#include "common.h"
+#include "include/common.h"
 
 // ----------------------------------------------------------------------------
 // RRDCALC management

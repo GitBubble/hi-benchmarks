@@ -2,7 +2,7 @@
 #ifndef HIBENCHMARKS_INLINED_H
 #define HIBENCHMARKS_INLINED_H
 
-#include "common.h"
+#include "include/common.h"
 
 #ifdef KERNEL_32BIT
 typedef uint32_t kernel_uint_t;

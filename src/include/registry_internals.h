@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0+
-#include "common.h"
+#include "include/common.h"
 
 #ifndef HIBENCHMARKS_REGISTRY_INTERNALS_H_H
 #define HIBENCHMARKS_REGISTRY_INTERNALS_H_H

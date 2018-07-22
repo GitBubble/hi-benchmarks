@@ -514,7 +514,6 @@ AC_CONFIG_FILES([
     Makefile
     charts.d/Makefile
     conf.d/Makefile
-    hibenchmarks.spec
     python.d/Makefile
     node.d/Makefile
     plugins.d/Makefile
@@ -523,7 +522,6 @@ AC_CONFIG_FILES([
     web/Makefile
     diagrams/Makefile
     makeself/Makefile
-    contrib/Makefile
     tests/Makefile
 ])
 AC_OUTPUT

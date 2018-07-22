@@ -38,7 +38,7 @@
  * ONCE IN THE SOURCE DATA SET.
  */
 
-#include "common.h"
+#include "include/common.h"
 
 #define ARL_ENTRY_FLAG_FOUND    0x01    // the entry has been found in the source data
 #define ARL_ENTRY_FLAG_EXPECTED 0x02    // the entry is expected by the program

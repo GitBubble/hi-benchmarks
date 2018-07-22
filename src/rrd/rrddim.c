@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0+
 #define HIBENCHMARKS_RRD_INTERNALS 1
-#include "common.h"
+#include "include/common.h"
 
 // ----------------------------------------------------------------------------
 // RRDDIM index

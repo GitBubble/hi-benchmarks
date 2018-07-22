@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0+
-#include "common.h"
+#include "include/common.h"
 
 static struct proc_net_sockstat {
     kernel_uint_t sockets_used;

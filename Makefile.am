@@ -19,12 +19,6 @@ MAINTAINERCLEANFILES= \
 
 EXTRA_DIST = \
 	.gitignore \
-	.codacy.yml \
-	.codeclimate.yml \
-	.csslintrc \
-	.eslintignore \
-	.eslintrc \
-	.travis \
 	m4/jemalloc.m4 \
     m4/ax_c___atomic.m4 \
     m4/ax_check_enable_debug.m4 \
@@ -37,24 +31,6 @@ EXTRA_DIST = \
     m4/ax_c_mallopt.m4 \
     m4/tcmalloc.m4 \
     m4/ax_c__generic.m4 \
-	autogen.sh \
-	README.md \
-	CONTRIBUTORS.md \
-	LICENSE \
-	LICENSES/Apache-2.0 \
-	LICENSES/BSD-2-Clause \
-	LICENSES/BSD-3-Clause \
-	LICENSES/CC-BY-4.0 \
-	LICENSES/CC0-1.0 \
-	LICENSES/FSFAP \
-	LICENSES/GPL-3.0 \
-	LICENSES/LGPL-2.1 \
-	LICENSES/LGPL-3.0 \
-	LICENSES/MIT \
-	LICENSES/OFL-1.1 \
-	LICENSES/Python-2.0 \
-	LICENSES/WTFPL \
-	REDISTRIBUTED.md \
 	autogen.sh \
 	$(NULL)
 
@@ -69,29 +45,18 @@ SUBDIRS = \
 	src \
 	system \
 	web \
-	contrib \
 	tests \
 	$(NULL)
 
 dist_noinst_DATA= \
-	cppcheck.sh \
 	configs.signatures \
 	Dockerfile \
-	Dockerfile.alpine \
-	Dockerfile.aarch64 \
-	Dockerfile.armv7hf \
-	hibenchmarks.cppcheck \
-	hibenchmarks.spec \
-	package.json \
 	$(NULL)
 
 # until integrated within build
 # should be proper init.d/openrc/systemd usable
 dist_noinst_SCRIPTS= \
-	coverity-scan.sh \
 	docker-build.sh \
-	kickstart.sh \
-	kickstart-static64.sh \
 	hibenchmarks-installer.sh \
 	installer/functions.sh \
 	$(NULL)

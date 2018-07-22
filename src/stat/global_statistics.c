@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0+
-#include "common.h"
+#include "include/common.h"
 
 volatile struct global_statistics global_statistics = {
         .connected_clients = 0,

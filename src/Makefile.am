@@ -8,7 +8,7 @@ AM_CPPFLAGS = \
 	-DVARLIB_DIR="\"$(varlibdir)\"" \
 	-DCACHE_DIR="\"$(cachedir)\"" \
 	-DCONFIG_DIR="\"$(configdir)\"" \
-	-DLOG_DIR="\"$(logdir)\"" \
+	-DLOG_DIR="\"$(util/logdir)\"" \
 	-DPLUGINS_DIR="\"$(pluginsdir)\"" \
 	-DRUN_DIR="\"$(localstatedir)/run/hibenchmarks\"" \
 	-DWEB_DIR="\"$(webdir)\"" \
@@ -44,155 +44,155 @@ endif
 
 hibenchmarks_SOURCES = \
 	util/adaptive_resortable_list.c \
-	adaptive_resortable_list.h \
-	appconfig.c \
-	appconfig.h \
-	avl.c \
-	avl.h \
-	backend_prometheus.c \
-	backend_prometheus.h \
-	backends.c \
-	backends.h \
-	clocks.c \
-	clocks.h \
-	common.c \
-	common.h \
-	daemon.c \
-	daemon.h \
-	dictionary.c \
-	dictionary.h \
-	eval.c \
-	eval.h \
-	global_statistics.c \
-	global_statistics.h \
-	health.c \
-	health.h \
-	health_config.c \
-	health_json.c \
-	health_log.c \
-	inlined.h \
-	locks.c \
-	locks.h \
-	log.c \
-	log.h \
-	main.c \
-	main.h \
-	plugin_checks.c \
-	plugin_checks.h \
-	plugin_idlejitter.c \
-	plugin_idlejitter.h \
-	plugins_d.c \
-	plugins_d.h \
-	popen.c \
-	popen.h \
-	procfile.c \
-	procfile.h \
-	registry.c \
-	registry.h \
-	registry_db.c \
-	registry_init.c \
-	registry_internals.c \
-	registry_internals.h \
-	registry_log.c \
-	registry_machine.c \
-	registry_machine.h \
-	registry_person.c \
-	registry_person.h \
-	registry_url.c \
-	registry_url.h \
-	rrd.c \
-	rrd.h \
-	rrd2json.c \
-	rrd2json.h \
-	rrd2json_api_old.c \
-	rrd2json_api_old.h \
-	rrdcalc.c \
-	rrdcalctemplate.c \
-	rrddim.c \
-	rrddimvar.c \
-	rrdfamily.c \
-	rrdhost.c \
-	rrdpush.c \
-	rrdpush.h \
-	rrdset.c \
-	rrdsetvar.c \
-	rrdvar.c \
-	signals.c \
-	signals.h \
-	simple_pattern.c \
-	simple_pattern.h \
-	socket.c \
-	socket.h \
-	statistical.c \
-	statistical.h \
-	statsd.c \
-	statsd.h \
-	storage_number.c \
-	storage_number.h \
-	threads.c \
-	threads.h \
-	unit_test.c \
-	unit_test.h \
-	url.c \
-	url.h \
-	web_api_old.c \
-	web_api_old.h \
-	web_api_v1.c \
-	web_api_v1.h \
-	web_buffer.c \
-	web_buffer.h \
-	web_buffer_svg.c \
-	web_buffer_svg.h \
-	web_client.c \
-	web_client.h \
-	web_server.c \
-	web_server.h \
+	include/adaptive_resortable_list.h \
+	util/appconfig.c \
+	include/appconfig.h \
+	util/avl.c \
+	include/avl.h \
+	backend/backend_prometheus.c \
+	include/backend_prometheus.h \
+	backend/backends.c \
+	include/backends.h \
+	host/locks.c \
+	include/locks.h \
+	util/common.c \
+	include/common.h \
+	host/daemon.c \
+	include/daemon.h \
+	util/dictionary.c \
+	include/dictionary.h \
+	util/eval.c \
+	include/eval.h \
+	stat/global_statistics.c \
+	include/global_statistics.h \
+	health/health.c \
+	include/health.h \
+	health/health_config.c \
+	health/health_json.c \
+	health/health_util/log.c \
+	include/inlined.h \
+	util/log.c \
+	include/log.h \
+	host/main.c \
+	include/main.h \
+	plugin/plugin_checks.c \
+	include/plugin_checks.h \
+	plugin/plugin_idlejitter.c \
+	include/plugin_idlejitter.h \
+	plugin/plugins_d.c \
+	include/plugins_d.h \
+	host/popen.c \
+	include/popen.h \
+	proc/procfile.c \
+	include/procfile.h \
+	proc/registry.c \
+	include/registry.h \
+	registry/registry_db.c \
+	registry/registry_init.c \
+	registry/registry_internals.c \
+	include/registry_internals.h \
+	registry/registey_log.c \
+	registry/registry_machine.c \
+	include/registry_machine.h \
+	registry/registry_person.c \
+	include/registry_person.h \
+	registry/registry_url.c \
+	include/registry_url.h \
+	rrd/rrd.c \
+	include/rrd.h \
+	rrd/rrd2json.c \
+	include/rrd2json.h \
+	rrd/rrd2json_api_old.c \
+	include/rrd2json_api_old.h \
+	rrd/rrdcalc.c \
+	rrd/rrdcalctemplate.c \
+	rrd/rrddim.c \
+	rrd/rrddimvar.c \
+	rrd/rrdfamily.c \
+	rrd/rrdhost.c \
+	rrd/rrdpush.c \
+	rrd/rrdpush.h \
+	rrd/rrdset.c \
+	rrd/rrdsetvar.c \
+	rrd/rrdvar.c \
+	host/signals.c \
+	host/signals.h \
+	util/simple_pattern.c \
+	util/simple_pattern.h \
+	host/socket.c \
+	host/socket.h \
+	stat/statistical.c \
+	include/statistical.h \
+	stat/statsd.c \
+	include/statsd.h \
+	stat/storage_number.c \
+	include/storage_number.h \
+	host/threads.c \
+	include/threads.h \
+	test/unit_test.c \
+	test/unit_test.h \
+	web/url.c \
+	include/url.h \
+	web/web_api_old.c \
+	include/web_api_old.h \
+	web/web_api_v1.c \
+	include/web_api_v1.h \
+	web/web_buffer.c \
+	include/web_buffer.h \
+	web/web_buffer_svg.c \
+	include/web_buffer_svg.h \
+	web/web_client.c \
+	include/web_client.h \
+	web/web_server.c \
+	include/web_server.h \
 	$(NULL)
 
 
 hibenchmarks_SOURCES += \
-	ipc.c \
-	ipc.h \
-	plugin_nfacct.c \
-	plugin_nfacct.h \
-	plugin_proc.c \
-	plugin_proc.h \
-	plugin_proc_diskspace.c \
-	plugin_proc_diskspace.h \
-	plugin_tc.c \
-	plugin_tc.h \
-	proc_diskstats.c \
-	proc_interrupts.c \
-	proc_softirqs.c \
-	proc_loadavg.c \
-	proc_meminfo.c \
-	proc_net_dev.c \
-	proc_net_ip_vs_stats.c \
-	proc_net_netstat.c \
-	proc_net_rpc_nfs.c \
-	proc_net_rpc_nfsd.c \
-	proc_net_snmp.c \
-	proc_net_snmp6.c \
-	proc_net_sctp_snmp.c \
-	proc_net_sockstat.c \
-	proc_net_sockstat6.c \
-	proc_net_softnet_stat.c \
-	proc_net_stat_conntrack.c \
-	proc_net_stat_synproxy.c \
-	proc_self_mountinfo.c \
-	proc_self_mountinfo.h \
-	zfs_common.c \
-    zfs_common.h \
-	proc_spl_kstat_zfs.c \
-	proc_stat.c \
-	proc_sys_kernel_random_entropy_avail.c \
-	proc_vmstat.c \
-	proc_uptime.c \
-	sys_kernel_mm_ksm.c \
-	sys_devices_system_edac_mc.c \
-	sys_devices_system_node.c \
-	sys_fs_cgroup.c \
-	sys_fs_btrfs.c \
+	host/ipc.c \
+	include/ipc.h \
+	plugin/plugin_nfacct.c \
+	include/plugin_nfacct.h \
+	plugin/plugin_proc.c \
+	include/plugin_proc.h \
+	plugin/plugin_proc_diskspace.c \
+	include/plugin_proc_diskspace.h \
+	plugin/plugin_tc.c \
+	include/plugin_tc.h \
+	proc/proc_diskstats.c \
+	proc/proc_interrupts.c \
+	proc/proc_softirqs.c \
+	proc/proc_loadavg.c \
+	proc/proc_meminfo.c \
+	proc/proc_net_dev.c \
+	proc/proc_net_ip_vs_stats.c \
+	proc/proc_net_netstat.c \
+	proc/proc_net_rpc_nfs.c \
+	proc/proc_net_rpc_nfsd.c \
+	proc/proc_net_snmp.c \
+	proc/proc_net_snmp6.c \
+	proc/proc_net_sctp_snmp.c \
+	proc/proc_net_sockstat.c \
+	proc/proc_net_sockstat6.c \
+	proc/proc_net_softnet_stat.c \
+	proc/proc_net_stat_conntrack.c \
+	proc/proc_net_stat_synproxy.c \
+	proc/proc_self_mountinfo.c \
+	proc/proc_self_mountinfo.h \
+	fs/zfs_common.c \
+    include/zfs_common.h \
+	proc/proc_spl_kstat_zfs.c \
+	proc/proc_stat.c \
+	proc/proc_sys_kernel_random_entropy_avail.c \
+	proc/proc_vmstat.c \
+	proc/proc_uptime.c \
+	fs/sys_kernel_mm_ksm.c \
+	fs/sys_devices_system_edac_mc.c \
+	fs/sys_devices_system_node.c \
+	fs/sys_fs_cgroup.c \
+	fs/sys_fs_btrfs.c \
+	util/clocks.c \
+	include/clocks.h \
 	$(NULL)
 
 
@@ -204,83 +204,32 @@ hibenchmarks_LDADD = \
 	$(NULL)
 
 apps_plugin_SOURCES = \
-	apps_plugin.c \
-	avl.c \
-	avl.h \
-	clocks.c \
-	clocks.h \
-	common.c \
-	common.h \
-	inlined.h \
-	locks.c \
-	locks.h \
-	log.c log.h \
-	procfile.c \
-	procfile.h \
-	threads.c \
-	threads.h \
-	web_buffer.c \
-	web_buffer.h \
+	plugin/apps_plugin.c \
+	util/avl.c \
+	include/avl.h \
+	util/clocks.c \
+	include/clocks.h \
+	util/common.c \
+	include/common.h \
+	include/inlined.h \
+	host/locks.c \
+	host/locks.h \
+	util/log.c util/log.h \
+	proc/procfile.c \
+	include/procfile.h \
+	host/threads.c \
+	include/threads.h \
+	web/web_buffer.c \
+	include/web_buffer.h \
 	$(NULL)
 
-if FREEBSD
 apps_plugin_SOURCES += \
-	plugin_freebsd.h \
+	util/adaptive_resortable_list.c \
+	include/adaptive_resortable_list.h \
 	$(NULL)
-else
-apps_plugin_SOURCES += \
-	adaptive_resortable_list.c \
-	adaptive_resortable_list.h \
-	$(NULL)
-endif
 
 apps_plugin_LDADD = \
 	$(OPTIONAL_MATH_LIBS) \
 	$(OPTIONAL_LIBCAP_LIBS) \
 	$(NULL)
 
-freeipmi_plugin_SOURCES = \
-	freeipmi_plugin.c \
-	clocks.c \
-	clocks.h \
-	common.c \
-	common.h \
-	inlined.h \
-	locks.c \
-	locks.h \
-	log.c log.h \
-	procfile.c \
-	procfile.h \
-	threads.c \
-	threads.h \
-	$(NULL)
-
-freeipmi_plugin_LDADD = \
-	$(OPTIONAL_IPMIMONITORING_LIBS) \
-	$(NULL)
-
-cgroup_network_SOURCES = \
-    cgroup-network.c \
-	clocks.c \
-	clocks.h \
-    common.c \
-    common.h \
-    inlined.h \
-	locks.c \
-	locks.h \
-    log.c \
-    log.h \
-	procfile.c \
-	procfile.h \
-	popen.c \
-	popen.h \
-	signals.c \
-	signals.h \
-	threads.c \
-	threads.h \
-    $(NULL)
-
-cgroup_network_LDADD = \
-	$(OPTIONAL_MATH_LIBS) \
-	$(OPTIONAL_LIBCAP_LIBS) \
-	$(NULL)

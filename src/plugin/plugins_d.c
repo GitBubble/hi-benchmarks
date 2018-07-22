@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0+
-#include "common.h"
+#include "include/common.h"
 
 char *plugin_directories[PLUGINSD_MAX_DIRECTORIES] = { NULL };
 char *hibenchmarks_configured_plugins_dir_base;

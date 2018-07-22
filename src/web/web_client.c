@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0+
-#include "common.h"
+#include "include/common.h"
 
 // this is an async I/O implementation of the web server request parser
 // it is used by all hibenchmarks web servers

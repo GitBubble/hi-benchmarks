@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0+
-#include "common.h"
+#include "include/common.h"
 
 typedef struct ksm_name_value {
     char filename[FILENAME_MAX + 1];

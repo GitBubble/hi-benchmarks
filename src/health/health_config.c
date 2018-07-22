@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0+
 #define HIBENCHMARKS_HEALTH_INTERNALS
-#include "common.h"
+#include "include/common.h"
 
 #define HEALTH_CONF_MAX_LINE 4096
 

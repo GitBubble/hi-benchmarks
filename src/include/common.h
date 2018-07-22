@@ -281,7 +281,7 @@
 #include "plugin_checks.h"
 #include "plugin_idlejitter.h"
 #include "plugin_nfacct.h"
-
+/*
 #if defined(__FreeBSD__)
 #include <pthread_np.h>
 #include "plugin_freebsd.h"
@@ -290,10 +290,11 @@
 #include "plugin_macos.h"
 #define HIBENCHMARKS_OS_TYPE "macos"
 #else
+*/
 #include "plugin_proc.h"
 #include "plugin_proc_diskspace.h"
 #define HIBENCHMARKS_OS_TYPE "linux"
-#endif /* __FreeBSD__, __APPLE__*/
+//#endif /* __FreeBSD__, __APPLE__*/
 
 typedef enum rrdcalc_status {
     RRDCALC_STATUS_REMOVED       = -2,
@@ -322,7 +323,7 @@ typedef enum rrdcalc_status {
 #include "signals.h"
 #include "daemon.h"
 #include "main.h"
-#include "unit_test.h"
+#include "test/unit_test.h"
 #include "ipc.h"
 #include "backends.h"
 #include "backend_prometheus.h"

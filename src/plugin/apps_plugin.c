@@ -6,7 +6,7 @@
  * Released under GPL v3+
  */
 
-#include "common.h"
+#include "include/common.h"
 
 // ----------------------------------------------------------------------------
 // debugging

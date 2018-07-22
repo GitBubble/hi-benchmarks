@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: GPL-3.0+ */
 #include "config.h"
-#include "common.h"
+#include "include/common.h"
 #include "clocks.h"
 
 void hibenchmarks_cleanup_and_exit(int ret) {
