@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0+
-#include "registry_internals.h"
+#include "include/registry_internals.h"
 
 int registry_db_should_be_saved(void) {
     debug(D_REGISTRY, "log entries %llu, max %llu", registry.log_count, registry.save_registry_every_entries);

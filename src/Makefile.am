@@ -34,13 +34,6 @@ if ENABLE_PLUGIN_APPS
 plugins_PROGRAMS += apps.plugin
 endif
 
-if ENABLE_PLUGIN_FREEIPMI
-plugins_PROGRAMS += freeipmi.plugin
-endif
-
-if ENABLE_PLUGIN_CGROUP_NETWORK
-plugins_PROGRAMS += cgroup-network
-endif
 
 hibenchmarks_SOURCES = \
 	util/adaptive_resortable_list.c \
@@ -69,7 +62,7 @@ hibenchmarks_SOURCES = \
 	include/health.h \
 	health/health_config.c \
 	health/health_json.c \
-	health/health_util/log.c \
+	health/health_log.c \
 	include/inlined.h \
 	util/log.c \
 	include/log.h \
@@ -85,13 +78,13 @@ hibenchmarks_SOURCES = \
 	include/popen.h \
 	proc/procfile.c \
 	include/procfile.h \
-	proc/registry.c \
+	registry/registry.c \
 	include/registry.h \
 	registry/registry_db.c \
 	registry/registry_init.c \
 	registry/registry_internals.c \
 	include/registry_internals.h \
-	registry/registey_log.c \
+	registry/registry_log.c \
 	registry/registry_machine.c \
 	include/registry_machine.h \
 	registry/registry_person.c \
@@ -189,7 +182,6 @@ hibenchmarks_SOURCES += \
 	fs/sys_kernel_mm_ksm.c \
 	fs/sys_devices_system_edac_mc.c \
 	fs/sys_devices_system_node.c \
-	fs/sys_fs_cgroup.c \
 	fs/sys_fs_btrfs.c \
 	util/clocks.c \
 	include/clocks.h \

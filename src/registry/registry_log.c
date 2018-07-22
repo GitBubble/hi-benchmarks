@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0+
-#include "registry_internals.h"
+#include "include/registry_internals.h"
 
 void registry_log(char action, REGISTRY_PERSON *p, REGISTRY_MACHINE *m, REGISTRY_URL *u, char *name) {
     if(likely(registry.log_fp)) {

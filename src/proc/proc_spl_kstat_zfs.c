@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0+
 #include "include/common.h"
-#include "zfs_common.h"
+#include "include/zfs_common.h"
 
 #define ZFS_PROC_ARCSTATS "/proc/spl/kstat/zfs/arcstats"
 

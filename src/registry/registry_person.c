@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0+
-#include "registry_internals.h"
+#include "include/registry_internals.h"
 
 // ----------------------------------------------------------------------------
 // PERSON_URL INDEX
