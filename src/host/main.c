@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0+
 #include "include/common.h"
 
-extern void *cgroups_main(void *ptr);
+//extern void *cgroups_main(void *ptr);
 
 void hibenchmarks_cleanup_and_exit(int ret) {
     // enabling this, is wrong
@@ -43,7 +43,7 @@ struct hibenchmarks_static_thread static_threads[] = {
 #ifdef INTERNAL_PLUGIN_NFACCT
     // nfacct requires root access
     // so, we build it as an external plugin with setuid to root
-    {"PLUGIN[nfacct]",       CONFIG_SECTION_PLUGINS,  "nfacct",     1, NULL, NULL, nfacct_main},
+   // {"PLUGIN[nfacct]",       CONFIG_SECTION_PLUGINS,  "nfacct",     1, NULL, NULL, nfacct_main},
 #endif
 
 #ifdef HIBENCHMARKS_INTERNAL_CHECKS
@@ -53,15 +53,15 @@ struct hibenchmarks_static_thread static_threads[] = {
 
 #if defined(__FreeBSD__)
     // FreeBSD internal plugins
-    {"PLUGIN[freebsd]",      CONFIG_SECTION_PLUGINS,  "freebsd",    1, NULL, NULL, freebsd_main},
+    //{"PLUGIN[freebsd]",      CONFIG_SECTION_PLUGINS,  "freebsd",    1, NULL, NULL, freebsd_main},
 #elif defined(__APPLE__)
     // macOS internal plugins
-    {"PLUGIN[macos]",        CONFIG_SECTION_PLUGINS,  "macos",      1, NULL, NULL, macos_main},
+    //{"PLUGIN[macos]",        CONFIG_SECTION_PLUGINS,  "macos",      1, NULL, NULL, macos_main},
 #else
     // linux internal plugins
     {"PLUGIN[proc]",         CONFIG_SECTION_PLUGINS,  "proc",       1, NULL, NULL, proc_main},
     {"PLUGIN[diskspace]",    CONFIG_SECTION_PLUGINS,  "diskspace",  1, NULL, NULL, proc_diskspace_main},
-    {"PLUGIN[cgroup]",       CONFIG_SECTION_PLUGINS,  "cgroups",    1, NULL, NULL, cgroups_main},
+    //{"PLUGIN[cgroup]",       CONFIG_SECTION_PLUGINS,  "cgroups",    1, NULL, NULL, cgroups_main},
     {"PLUGIN[tc]",           CONFIG_SECTION_PLUGINS,  "tc",         1, NULL, NULL, tc_main},
 #endif /* __FreeBSD__, __APPLE__*/
 
