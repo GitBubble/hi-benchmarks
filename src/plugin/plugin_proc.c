@@ -132,7 +132,7 @@ void *proc_main(void *ptr) {
                             , NULL
                             , "proc"
                             , NULL
-                            , "NetData Proc Plugin Modules Durations"
+                            , "HiBenchmarks Proc Plugin Modules Durations"
                             , "milliseconds/run"
                             , "hibenchmarks"
                             , "stats"

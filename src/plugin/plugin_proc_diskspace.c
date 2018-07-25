@@ -405,7 +405,7 @@ void *proc_diskspace_main(void *ptr) {
                         , NULL
                         , "diskspace"
                         , NULL
-                        , "NetData Disk Space Plugin CPU usage"
+                        , "HiBenchmarks Disk Space Plugin CPU usage"
                         , "milliseconds/s"
                         , "diskspace"
                         , NULL
@@ -433,7 +433,7 @@ void *proc_diskspace_main(void *ptr) {
                         , NULL
                         , "diskspace"
                         , NULL
-                        , "NetData Disk Space Plugin Duration"
+                        , "HiBenchmarks Disk Space Plugin Duration"
                         , "milliseconds/run"
                         , "diskspace"
                         , NULL

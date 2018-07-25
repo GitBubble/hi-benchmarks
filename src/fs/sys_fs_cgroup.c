@@ -2740,7 +2740,7 @@ void *cgroups_main(void *ptr) {
                         , NULL
                         , "cgroups"
                         , NULL
-                        , "NetData CGroups Plugin CPU usage"
+                        , "HiBenchmarks CGroups Plugin CPU usage"
                         , "milliseconds/s"
                         , "cgroup"
                         , "stats"

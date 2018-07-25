@@ -899,7 +899,7 @@ else
     fi
 
     started=1
-    echo >&2 "OK. NetData Started!"
+    echo >&2 "OK. HiBenchmarks Started!"
     echo >&2
 
     # -----------------------------------------------------------------------------

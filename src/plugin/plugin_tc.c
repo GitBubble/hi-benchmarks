@@ -1073,7 +1073,7 @@ void *tc_main(void *ptr) {
                             , NULL
                             , "tc.helper"
                             , NULL
-                            , "NetData TC CPU usage"
+                            , "HiBenchmarks TC CPU usage"
                             , "milliseconds/s"
                             , "tc"
                             , NULL
@@ -1100,7 +1100,7 @@ void *tc_main(void *ptr) {
                             , NULL
                             , "tc.helper"
                             , NULL
-                            , "NetData TC script execution"
+                            , "HiBenchmarks TC script execution"
                             , "milliseconds/run"
                             , "tc"
                             , NULL

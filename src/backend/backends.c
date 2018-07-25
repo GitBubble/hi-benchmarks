@@ -684,7 +684,7 @@ void *backends_main(void *ptr) {
     rrddim_add(chart_latency, "latency",   NULL,  1, 1000, RRD_ALGORITHM_ABSOLUTE);
     */
 
-    RRDSET *chart_rusage = rrdset_create_localhost("hibenchmarks", "backend_thread_cpu", NULL, "backend", NULL, "NetData Backend Thread CPU usage", "milliseconds/s", "backends", NULL, 130630, backend_update_every, RRDSET_TYPE_STACKED);
+    RRDSET *chart_rusage = rrdset_create_localhost("hibenchmarks", "backend_thread_cpu", NULL, "backend", NULL, "HiBenchmarks Backend Thread CPU usage", "milliseconds/s", "backends", NULL, 130630, backend_update_every, RRDSET_TYPE_STACKED);
     rrddim_add(chart_rusage, "user",   NULL, 1, 1000, RRD_ALGORITHM_INCREMENTAL);
     rrddim_add(chart_rusage, "system", NULL, 1, 1000, RRD_ALGORITHM_INCREMENTAL);
 

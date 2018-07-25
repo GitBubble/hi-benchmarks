@@ -149,7 +149,7 @@ void global_statistics_charts(void) {
                     , NULL
                     , "freebsd"
                     , NULL
-                    , "NetData FreeBSD Plugin CPU usage"
+                    , "HiBenchmarks FreeBSD Plugin CPU usage"
                     , "milliseconds/s"
                     , "hibenchmarks"
                     , "stats"
@@ -165,7 +165,7 @@ void global_statistics_charts(void) {
                     , NULL
                     , "proc"
                     , NULL
-                    , "NetData Proc Plugin CPU usage"
+                    , "HiBenchmarks Proc Plugin CPU usage"
                     , "milliseconds/s"
                     , "hibenchmarks"
                     , "stats"
@@ -200,7 +200,7 @@ void global_statistics_charts(void) {
                     , NULL
                     , "hibenchmarks"
                     , NULL
-                    , "NetData CPU usage"
+                    , "HiBenchmarks CPU usage"
                     , "milliseconds/s"
                     , "hibenchmarks"
                     , "stats"
@@ -233,7 +233,7 @@ void global_statistics_charts(void) {
                     , NULL
                     , "hibenchmarks"
                     , NULL
-                    , "NetData Web Clients"
+                    , "HiBenchmarks Web Clients"
                     , "connected clients"
                     , "hibenchmarks"
                     , "stats"
@@ -264,7 +264,7 @@ void global_statistics_charts(void) {
                     , NULL
                     , "hibenchmarks"
                     , NULL
-                    , "NetData Web Requests"
+                    , "HiBenchmarks Web Requests"
                     , "requests/s"
                     , "hibenchmarks"
                     , "stats"
@@ -296,7 +296,7 @@ void global_statistics_charts(void) {
                     , NULL
                     , "hibenchmarks"
                     , NULL
-                    , "NetData Network Traffic"
+                    , "HiBenchmarks Network Traffic"
                     , "kilobits/s"
                     , "hibenchmarks"
                     , "stats"
@@ -330,7 +330,7 @@ void global_statistics_charts(void) {
                     , NULL
                     , "hibenchmarks"
                     , NULL
-                    , "NetData API Response Time"
+                    , "HiBenchmarks API Response Time"
                     , "ms/request"
                     , "hibenchmarks"
                     , "stats"
@@ -379,7 +379,7 @@ void global_statistics_charts(void) {
                     , NULL
                     , "hibenchmarks"
                     , NULL
-                    , "NetData API Responses Compression Savings Ratio"
+                    , "HiBenchmarks API Responses Compression Savings Ratio"
                     , "percentage"
                     , "hibenchmarks"
                     , "stats"

@@ -331,7 +331,7 @@ void registry_statistics(void) {
                 , NULL
                 , "registry"
                 , NULL
-                , "NetData Registry Sessions"
+                , "HiBenchmarks Registry Sessions"
                 , "session"
                 , "registry"
                 , "stats"
@@ -356,7 +356,7 @@ void registry_statistics(void) {
                 , NULL
                 , "registry"
                 , NULL
-                , "NetData Registry Entries"
+                , "HiBenchmarks Registry Entries"
                 , "entries"
                 , "registry"
                 , "stats"
@@ -389,7 +389,7 @@ void registry_statistics(void) {
                 , NULL
                 , "registry"
                 , NULL
-                , "NetData Registry Memory"
+                , "HiBenchmarks Registry Memory"
                 , "KB"
                 , "registry"
                 , "stats"

@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "NetData API",
+    "title": "HiBenchmarks API",
     "description": "Real time data collection and graphs...",
     "version": "1.9.11_rolling"
   },
@@ -608,7 +608,7 @@
         },
         "priority": {
           "type": "string",
-          "description": "The relative priority of the chart. NetData does not care about priorities. This is just an indication of importance for the chart viewers to sort charts of higher priority (lower number) closer to the top. Priority sorting should only be used among charts of the same type or family."
+          "description": "The relative priority of the chart. HiBenchmarks does not care about priorities. This is just an indication of importance for the chart viewers to sort charts of higher priority (lower number) closer to the top. Priority sorting should only be used among charts of the same type or family."
         },
         "enabled": {
           "type": "boolean",

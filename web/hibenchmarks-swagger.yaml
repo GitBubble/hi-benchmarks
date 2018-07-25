@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0+
 swagger: '2.0'
 info:
-  title: NetData API
+  title: HiBenchmarks API
   description: 'Real time data collection and graphs...'
   version: 1.9.11_rolling
 host: registry.my-hibenchmarks.io
@@ -397,7 +397,7 @@ definitions:
         description: 'The title of the chart.'
       priority:
         type: string
-        description: 'The relative priority of the chart. NetData does not care about priorities. This is just an indication of importance for the chart viewers to sort charts of higher priority (lower number) closer to the top. Priority sorting should only be used among charts of the same type or family.'
+        description: 'The relative priority of the chart. HiBenchmarks does not care about priorities. This is just an indication of importance for the chart viewers to sort charts of higher priority (lower number) closer to the top. Priority sorting should only be used among charts of the same type or family.'
       enabled:
         type: boolean
         description: 'True when the chart is enabled. Disabled charts do not currently collect values, but they may have historical values available.'
