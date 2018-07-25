@@ -152,7 +152,7 @@ Valid <installer options> are:
         Use this option to allow it continue
         without checking pkg-config.
 
-Netdata will by default be compiled with gcc optimization -g
+HiBenchmarks will by default be compiled with gcc optimization -g
 If you need to pass different CFLAGS, use something like this:
 
   CFLAGS="<gcc options>" ${ME} <installer options>
@@ -331,7 +331,7 @@ if [ "${UID}" -ne 0 ]
       sudo $0 ${@}
   
   We suggest to install it as root, or certain data collectors will
-  not be able to work. Netdata drops root privileges when running.
+  not be able to work. HiBenchmarks drops root privileges when running.
   So, if you plan to keep it, install it as root to get the full
   functionality.
   
@@ -343,7 +343,7 @@ NONROOTNOPREFIX
  
   ${TPUT_RED}${TPUT_BOLD}IMPORTANT${TPUT_RESET}:
   You are about to install hibenchmarks as a non-root user.
-  Netdata will work, but a few data collection modules that
+  HiBenchmarks will work, but a few data collection modules that
   require root access will fail.
   
   If you installing hibenchmarks permanently on your system, run

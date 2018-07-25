@@ -29,7 +29,7 @@ hibenchmarksDashboard.menu = {
     'tc': {
         title: 'Quality of Service',
         icon: '<i class="fas fa-globe"></i>',
-        info: 'Netdata collects and visualizes <code>tc</code> class utilization using its <a href="https://github.com/firehol/hibenchmarks/blob/master/plugins.d/tc-qos-helper.sh" target="_blank">tc-helper plugin</a>. If you also use <a href="http://firehol.org/#fireqos" target="_blank">FireQOS</a> for setting up QoS, hibenchmarks automatically collects interface and class names. If your QoS configuration includes overheads calculation, the values shown here will include these overheads (the total bandwidth for the same interface as reported in the Network Interfaces section, will be lower than the total bandwidth reported here). QoS data collection may have a slight time difference compared to the interface (QoS data collection uses a BASH script, so a shift in data collection of a few milliseconds should be justified).'
+        info: 'HiBenchmarks collects and visualizes <code>tc</code> class utilization using its <a href="https://github.com/firehol/hibenchmarks/blob/master/plugins.d/tc-qos-helper.sh" target="_blank">tc-helper plugin</a>. If you also use <a href="http://firehol.org/#fireqos" target="_blank">FireQOS</a> for setting up QoS, hibenchmarks automatically collects interface and class names. If your QoS configuration includes overheads calculation, the values shown here will include these overheads (the total bandwidth for the same interface as reported in the Network Interfaces section, will be lower than the total bandwidth reported here). QoS data collection may have a slight time difference compared to the interface (QoS data collection uses a BASH script, so a shift in data collection of a few milliseconds should be justified).'
     },
 
     'net': {
@@ -156,7 +156,7 @@ hibenchmarksDashboard.menu = {
     },
 
     'hibenchmarks': {
-        title: 'Netdata Monitoring',
+        title: 'HiBenchmarks Monitoring',
         icon: '<i class="fas fa-chart-bar"></i>',
         info: 'Performance metrics for the operation of hibenchmarks itself and its plugins.'
     },
@@ -169,7 +169,7 @@ hibenchmarksDashboard.menu = {
     'cgroup': {
         title: '',
         icon: '<i class="fas fa-th"></i>',
-        info: 'Container resource utilization metrics. Netdata reads this information from <b>cgroups</b> (abbreviated from <b>control groups</b>), a Linux kernel feature that limits and accounts resource usage (CPU, memory, disk I/O, network, etc.) of a collection of processes. <b>cgroups</b> together with <b>namespaces</b> (that offer isolation between processes) provide what we usually call: <b>containers</b>.'
+        info: 'Container resource utilization metrics. HiBenchmarks reads this information from <b>cgroups</b> (abbreviated from <b>control groups</b>), a Linux kernel feature that limits and accounts resource usage (CPU, memory, disk I/O, network, etc.) of a collection of processes. <b>cgroups</b> together with <b>namespaces</b> (that offer isolation between processes) provide what we usually call: <b>containers</b>.'
     },
 
     'cgqemu': {

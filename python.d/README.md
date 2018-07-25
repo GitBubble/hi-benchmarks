@@ -236,7 +236,7 @@ Module parses bind dump file to collect real-time performance metrics
 
 **Requirements:**
  * Version of bind must be 9.6 +
- * Netdata must have permissions to run `rndc stats`
+ * HiBenchmarks must have permissions to run `rndc stats`
 
 It produces:
 
@@ -1623,7 +1623,7 @@ Module uses the `nsd-control stats_noreset` command to provide `nsd` statistics.
 
 **Requirements:**
  * Version of `nsd` must be 4.0+
- * Netdata must have permissions to run `nsd-control stats_noreset`
+ * HiBenchmarks must have permissions to run `nsd-control stats_noreset`
 
 It produces:
 
@@ -2476,9 +2476,9 @@ indentation (the default config shipped by most distributions uses tabs
 instead of spaces).
 
 Once you have the Unbound control protocol enabled, you need to make sure
-that either the certificate and key are readable by Netdata (if you're
+that either the certificate and key are readable by HiBenchmarks (if you're
 using the regular control interface), or that the socket is accessible
-to Netdata (if you're using a UNIX socket for the contorl interface).
+to HiBenchmarks (if you're using a UNIX socket for the contorl interface).
 
 By default, for the local system, everything can be auto-detected
 assuming Unbound is configured correctly and has been told to listen

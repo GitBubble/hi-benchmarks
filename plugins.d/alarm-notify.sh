@@ -1919,7 +1919,7 @@ send_pushover "${PUSHOVER_APP_TOKEN}" "${to_pushover}" "${when}" "${goto_url}" "
 <small><b>${family}</b><br/>Family<br/>&nbsp;</small>
 <small><b>${severity}</b><br/>Severity<br/>&nbsp;</small>
 <small><b>${date}${raised_for_html}</b><br/>Time<br/>&nbsp;</small>
-<a href=\"${goto_url}\">View Netdata</a><br/>&nbsp;
+<a href=\"${goto_url}\">View HiBenchmarks</a><br/>&nbsp;
 <small><small>The source of this alarm is line ${src}</small></small>
 "
 
@@ -2147,7 +2147,7 @@ Content-Transfer-Encoding: 8bit
                                     </tr>
                                     <tr style="margin: 0; padding: 0;">
                                         <td style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 18px; vertical-align: top; margin: 0; padding: 0 0 20px;">
-                                            <a href="${goto_url}" style="font-size: 14px; color: #ffffff; text-decoration: none; line-height: 1.5; font-weight: bold; text-align: center; display: inline-block; text-transform: capitalize; background: #35568d; border-width: 1px; border-style: solid; border-color: #2b4c86; margin: 0; padding: 10px 15px;" target="_blank">View Netdata</a>
+                                            <a href="${goto_url}" style="font-size: 14px; color: #ffffff; text-decoration: none; line-height: 1.5; font-weight: bold; text-align: center; display: inline-block; text-transform: capitalize; background: #35568d; border-width: 1px; border-style: solid; border-color: #2b4c86; margin: 0; padding: 10px 15px;" target="_blank">View HiBenchmarks</a>
                                         </td>
                                     </tr>
                                     <tr style="text-align: center; margin: 0; padding: 0;">

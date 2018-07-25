@@ -15,7 +15,7 @@
 # to exit.
 : "${HIBENCHMARKS_FORCE_EXIT:=0}"
 
-# Netdata will use these services, only if they
+# HiBenchmarks will use these services, only if they
 # are enabled to start.
 : "${HIBENCHMARKS_START_AFTER_SERVICES:=apache2 squid nginx mysql named opensips upsd hostapd postfix lm_sensors}"
 
@@ -40,19 +40,19 @@ depend() {
 }
 
 reload() {
-    ebegin "Reloading Netdata"
+    ebegin "Reloading HiBenchmarks"
     start-stop-daemon --signal SIGUSR2 --pidfile "${pidfile}"
-    eend $? "Failed to reload Netdata"
+    eend $? "Failed to reload HiBenchmarks"
 }
 
 rotate() {
-    ebegin "Logrotating Netdata"
+    ebegin "Logrotating HiBenchmarks"
     start-stop-daemon --signal SIGHUP --pidfile "${pidfile}"
-    eend $? "Failed to logrotate Netdata"
+    eend $? "Failed to logrotate HiBenchmarks"
 }
 
 save() {
-    ebegin "Saving Netdata database"
+    ebegin "Saving HiBenchmarks database"
     start-stop-daemon --signal SIGUSR1 --pidfile "${pidfile}"
-    eend $? "Failed to save Netdata database"
+    eend $? "Failed to save HiBenchmarks database"
 }

@@ -44,7 +44,7 @@ void *checks_main(void *ptr) {
             , NULL
             , "hibenchmarks"
             , NULL
-            , "Netdata calcs microseconds"
+            , "HiBenchmarks calcs microseconds"
             , "a million !"
             , "hibenchmarks"
             , "checks"

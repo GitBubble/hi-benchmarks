@@ -3,7 +3,7 @@
 #
 # hibenchmarks	Real-time performance monitoring, done right
 # chkconfig: 345 99 01
-# description:  Netdata is a daemon that collects data in real-time (per second)
+# description:  HiBenchmarks is a daemon that collects data in real-time (per second)
 #               and presents a web site to view and analyze them. The presentation
 #               is also real-time and full of interactive charts that precisely
 #               render all collected values.

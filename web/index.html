@@ -2900,7 +2900,7 @@
             document.getElementById('versionCheckLog').innerHTML = msg;
         }
 
-        function getNetdataCommitIdFromVersion() {
+        function getHiBenchmarksCommitIdFromVersion() {
             var s = options.version.split('-');
 
             if(s.length !== 3) return null;
@@ -2915,7 +2915,7 @@
             return null;
         }
 
-        function getNetdataCommitId(force, callback) {
+        function getHiBenchmarksCommitId(force, callback) {
             versionLog('Downloading installed git commit id from hibenchmarks...');
 
             $.ajax({
@@ -2927,7 +2927,7 @@
             .done(function(data) {
                 data = data.replace(/(\r\n|\n|\r| |\t)/gm,"");
 
-                var c = getNetdataCommitIdFromVersion();
+                var c = getHiBenchmarksCommitIdFromVersion();
                 if(c !== null && data.length === 40 && data.substring(0, 7) !== c) {
                     versionLog('Installed files commit id and internal hibenchmarks git commit id do not match');
                     data = c;
@@ -2943,7 +2943,7 @@
                 versionLog('Failed to download installed git commit id from hibenchmarks!');
 
                 if(force === true) {
-                    var c = getNetdataCommitIdFromVersion();
+                    var c = getHiBenchmarksCommitIdFromVersion();
                     if(c === null) versionLog('Cannot find the git commit id of hibenchmarks.');
                     callback(c);
                 }
@@ -2971,7 +2971,7 @@
         }
 
         function checkForUpdate(force, callback) {
-            getNetdataCommitId(force, function(sha1) {
+            getHiBenchmarksCommitId(force, function(sha1) {
                 if(sha1 === null) callback(null, null);
 
                 getGithubLatestCommit(function(sha2) {
@@ -3020,7 +3020,7 @@
                     save = true;
                     var compare = 'https://github.com/firehol/hibenchmarks/compare/' + sha1.toString() + '...' + sha2.toString();
 
-                    versionLog('<p><big><strong>New version of hibenchmarks available!</strong></big></p><p>Latest commit: <b><code>' + sha2.substring(0, 7).toString() + '</code></b></p><p><a href="' + compare + '" target="_blank">Click here for the changes log</a> since your installed version, and<br/><a href="https://github.com/firehol/hibenchmarks/wiki/Updating-Netdata" target="_blank">click here for directions on updating</a> your hibenchmarks installation.</p><p>We suggest to review the changes log for new features you may be interested, or important bug fixes you may need.<br/>Keeping your hibenchmarks updated, is generally a good idea.</p>');
+                    versionLog('<p><big><strong>New version of hibenchmarks available!</strong></big></p><p>Latest commit: <b><code>' + sha2.substring(0, 7).toString() + '</code></b></p><p><a href="' + compare + '" target="_blank">Click here for the changes log</a> since your installed version, and<br/><a href="https://github.com/firehol/hibenchmarks/wiki/Updating-HiBenchmarks" target="_blank">click here for directions on updating</a> your hibenchmarks installation.</p><p>We suggest to review the changes log for new features you may be interested, or important bug fixes you may need.<br/>Keeping your hibenchmarks updated, is generally a good idea.</p>');
 
                     document.getElementById('update_badge').innerHTML = '!';
                 }
@@ -4106,7 +4106,7 @@
             // ------------------------------------------------------------------------
             // my-hibenchmarks menu
 
-            Ps.initialize(document.getElementById('myNetdataDropdownUL'), {
+            Ps.initialize(document.getElementById('myHiBenchmarksDropdownUL'), {
                 wheelSpeed: 1,
                 wheelPropagation: false,
                 swipePropagation: false,
@@ -4120,7 +4120,7 @@
                 theme: 'default'
             });
 
-            $('#myNetdataDropdownParent')
+            $('#myHiBenchmarksDropdownParent')
                 .on('show.bs.dropdown', function () {
                     var hash = urlOptions.genHash();
                     $('.registry_link').each(function(idx) {
@@ -4130,7 +4130,7 @@
                     HIBENCHMARKS.pause(function() {});
                 })
                 .on('shown.bs.dropdown', function () {
-                    Ps.update(document.getElementById('myNetdataDropdownUL'));
+                    Ps.update(document.getElementById('myHiBenchmarksDropdownUL'));
                 })
                 .on('hidden.bs.dropdown', function () {
                     HIBENCHMARKS.unpause();
@@ -4369,7 +4369,7 @@
 
             HIBENCHMARKS.onresizeCallback = function() {
                 Ps.update(document.getElementById('sidebar'));
-                Ps.update(document.getElementById('myNetdataDropdownUL'));
+                Ps.update(document.getElementById('myHiBenchmarksDropdownUL'));
             };
             HIBENCHMARKS.onresizeCallback();
 
@@ -4493,9 +4493,9 @@
         <div class="container">
             <nav id="myhibenchmarks_nav" class="collapse navbar-collapse navbar-left hidden-sm hidden-xs" role="navigation" style="padding-right: 20px;">
                 <ul class="nav navbar-nav">
-                    <li class="dropdown" id="myNetdataDropdownParent" title="your other hibenchmarks servers" data-toggle="tooltip" data-placement="right">
+                    <li class="dropdown" id="myHiBenchmarksDropdownParent" title="your other hibenchmarks servers" data-toggle="tooltip" data-placement="right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">my-hibenchmarks <strong class="caret"></strong></a>
-                        <ul class="dropdown-menu scrollable-menu inpagemenu multi-column columns-2" role="menu" id="myNetdataDropdownUL">
+                        <ul class="dropdown-menu scrollable-menu inpagemenu multi-column columns-2" role="menu" id="myHiBenchmarksDropdownUL">
                             <div class="row">
                                 <div class="col-sm-6" style="width: 85%; padding-right: 0;">
                                     <ul id="myhibenchmarks_servers" class="multi-column-dropdown">
@@ -4551,7 +4551,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
-                    <h1>Netdata
+                    <h1>HiBenchmarks
                         <p class="lead">Real-time performance monitoring, in the greatest possible detail</p>
                     </h1>
                 </div>
@@ -5154,7 +5154,7 @@
                                     <tr class="option-row">
                                         <td class="option-control"><input id="hibenchmarks_theme_control" type="checkbox" checked data-toggle="toggle" data-offstyle="danger" data-onstyle="success" data-on="Dark" data-off="White" data-width="110px"></td>
                                         <td class="option-info"><strong>Which theme to use?</strong><br/>
-                                            <small>Netdata comes with two themes: <b>Dark</b> (the default) and <b>White</b>.
+                                            <small>HiBenchmarks comes with two themes: <b>Dark</b> (the default) and <b>White</b>.
                                             <br/>
                                             <b>Switching this will reload the dashboard</b>.
                                             </small>
@@ -5163,7 +5163,7 @@
                                     <tr class="option-row">
                                         <td class="option-control"><input id="show_help" type="checkbox" checked data-toggle="toggle" data-on="Help Me" data-off="No Help" data-width="110px"></td>
                                         <td class="option-info"><strong>Do you need help?</strong><br/>
-                                            <small>Netdata can show some help in some areas to help you use the dashboard. If all these balloons bother you, disable them using this switch.
+                                            <small>HiBenchmarks can show some help in some areas to help you use the dashboard. If all these balloons bother you, disable them using this switch.
                                             <br/>
                                             <b>Switching this will reload the dashboard</b>.
                                             </small>
@@ -5202,7 +5202,7 @@
                                             <td class="option-control"><input id="units_conversion" type="checkbox" checked data-toggle="toggle"  data-on="Scale Units" data-off="Fixed Units" data-onstyle="success" data-width="110px"></td>
                                             <td class="option-info"><strong>Enable auto-scaling of select units?</strong><br/>
                                                 <small>When set to <b>Scale Units</b> the values shown will dynamically be scaled (e.g. 1000 kilobits will be shown as 1 megabit).
-                                                    Netdata can auto-scale these original units: <code>kilobits/s</code>, <code>kilobytes/s</code>, <code>KB/s</code>,
+                                                    HiBenchmarks can auto-scale these original units: <code>kilobits/s</code>, <code>kilobytes/s</code>, <code>KB/s</code>,
                                                     <code>KB</code>, <code>MB</code>, and <code>GB</code>.
                                                     When set to <b>Fixed Units</b> all the values will be rendered using the original units maintained by the hibenchmarks server.
                                                 </small>
@@ -5672,7 +5672,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="switchRegistryModalLabel">Switch Netdata Registry Identity</h4>
+                    <h4 class="modal-title" id="switchRegistryModalLabel">Switch HiBenchmarks Registry Identity</h4>
                 </div>
                 <div class="modal-body">
                     You can copy and paste the following ID to all your browsers (e.g. work and home).

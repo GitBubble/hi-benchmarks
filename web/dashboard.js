@@ -983,17 +983,17 @@ var HIBENCHMARKS = window.HIBENCHMARKS || {};
         405: { message: "Cannot download charts index from server", alert: true },
         406: { message: "Invalid charts index downloaded from server", alert: true },
         407: { message: "Cannot HELLO hibenchmarks server", alert: false },
-        408: { message: "Netdata servers sent invalid response to HELLO", alert: false },
+        408: { message: "HiBenchmarks servers sent invalid response to HELLO", alert: false },
         409: { message: "Cannot ACCESS hibenchmarks registry", alert: false },
-        410: { message: "Netdata registry ACCESS failed", alert: false },
-        411: { message: "Netdata registry server send invalid response to DELETE ", alert: false },
-        412: { message: "Netdata registry DELETE failed", alert: false },
-        413: { message: "Netdata registry server send invalid response to SWITCH ", alert: false },
-        414: { message: "Netdata registry SWITCH failed", alert: false },
-        415: { message: "Netdata alarms download failed", alert: false },
-        416: { message: "Netdata alarms log download failed", alert: false },
-        417: { message: "Netdata registry server send invalid response to SEARCH ", alert: false },
-        418: { message: "Netdata registry SEARCH failed", alert: false }
+        410: { message: "HiBenchmarks registry ACCESS failed", alert: false },
+        411: { message: "HiBenchmarks registry server send invalid response to DELETE ", alert: false },
+        412: { message: "HiBenchmarks registry DELETE failed", alert: false },
+        413: { message: "HiBenchmarks registry server send invalid response to SWITCH ", alert: false },
+        414: { message: "HiBenchmarks registry SWITCH failed", alert: false },
+        415: { message: "HiBenchmarks alarms download failed", alert: false },
+        416: { message: "HiBenchmarks alarms log download failed", alert: false },
+        417: { message: "HiBenchmarks registry server send invalid response to SEARCH ", alert: false },
+        418: { message: "HiBenchmarks registry SEARCH failed", alert: false }
     };
     HIBENCHMARKS.errorLast = {
         code: 0,
