@@ -9,7 +9,7 @@ CHART_PARAMS = ['type', 'id', 'name', 'title', 'units', 'family', 'context', 'ch
 DIMENSION_PARAMS = ['id', 'name', 'algorithm', 'multiplier', 'divisor', 'hidden']
 VARIABLE_PARAMS = ['id', 'value']
 
-CHART_TYPES = ['line', 'area', 'stacked']
+CHART_TYPES = ['line', 'area', 'stacked','string']
 DIMENSION_ALGORITHMS = ['absolute', 'incremental', 'percentage-of-absolute-row', 'percentage-of-incremental-row']
 
 CHART_BEGIN = 'BEGIN {type}.{id} {since_last}\n'
@@ -318,7 +318,7 @@ class Dimension:
 
     def get_value(self, data):
         try:
-            return int(data[self.id])
+            return (data[self.id])
         except (KeyError, TypeError):
             return None
 

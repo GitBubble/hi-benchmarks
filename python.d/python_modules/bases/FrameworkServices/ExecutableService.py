@@ -16,6 +16,7 @@ class ExecutableService(SimpleService):
     def __init__(self, configuration=None, name=None):
         SimpleService.__init__(self, configuration=configuration, name=name)
         self.command = None
+        self.commands_base = []
 
     def _get_raw_data(self, stderr=False):
         """
@@ -44,8 +45,24 @@ class ExecutableService(SimpleService):
         :return: <boolean>
         """
         # Preference: 1. "command" from configuration file 2. "command" from plugin (if specified)
-        if 'command' in self.configuration:
-            self.command = self.configuration['command']
+        
+
+        try:
+            data = self._get_data()
+        except Exception as error:
+            self.error('_get_data() failed. Command: {command}. Error: {error}'.format(command=self.command,
+                                                                                       error=error))
+            return False
+
+        if isinstance(data, dict) and data:
+            return True
+        self.error('Command "{command}" returned no data'.format(command=self.command))
+        return False
+
+
+    def check_a_command(self):
+        #if 'command' in self.configuration:
+        #    self.command = self.configuration['command']
 
         # "command" must be: 1.not None 2. type <str>
         if not (self.command and isinstance(self.command, str)):
@@ -75,15 +92,5 @@ class ExecutableService(SimpleService):
                 return False
 
         self.command = [command] + opts if opts else [command]
+        return True
 
-        try:
-            data = self._get_data()
-        except Exception as error:
-            self.error('_get_data() failed. Command: {command}. Error: {error}'.format(command=self.command,
-                                                                                       error=error))
-            return False
-
-        if isinstance(data, dict) and data:
-            return True
-        self.error('Command "{command}" returned no data'.format(command=self.command))
-        return False
