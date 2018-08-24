@@ -56,13 +56,12 @@ class Service(ExecutableService):
     def __init__(self, configuration=None, name=None):
         ExecutableService.__init__(self, configuration=configuration, name=name)
         self.order = ORDER
-        
+
         # All the commands should be run. First command must be complete, others may add arguments from provious commands.
-        self.commands_base = ['rosnode list', 'rosnode info']
+        self.commands_base = ['rosnode list','rosnode info']
         
     def _get_data(self):
         data = dict()
-
         # For each command, you need to design two functions: pre_process and post_process.
         # In the function pre_process, you should return the complete command finally.
         def rosnode_list_pre_process(command):
@@ -72,15 +71,20 @@ class Service(ExecutableService):
         # An easy way to do that is to assign value for each dimension in charts like
         # data[dimension_id] = value
         def rosnode_list_post_process(raw_data):
-            data['nodesnumber'] = len(raw_data)
             if(raw_data):
+                data['nodesnumber'] = len(raw_data)
                 data['nodesname'] = raw_data[0][:-1]
-            for each_node_name in raw_data[1:] :
-                data['nodesname'] = data['nodesname'] + ' '
-                data['nodesname'] = data['nodesname'] + each_node_name[:-1]
+                for each_node_name in raw_data[1:] :
+                    data['nodesname'] = data['nodesname'] + ' '
+                    data['nodesname'] = data['nodesname'] + each_node_name[:-1]
+            else:
+                data['nodesnumber'] = 0
 
         def rosnode_info_pre_process(command):
-            command = str(command + ' ' + data['nodesname'])
+            if data['nodesnumber'] == 0:
+                command = None
+            else:
+                command = str(command + ' ' + data['nodesname'])
             return command
 
         def rosnode_info_post_process(raw_data):
@@ -91,11 +95,11 @@ class Service(ExecutableService):
         for command in self.commands_base:
             self.command = locals()[command.replace(' ', '_') + '_pre_process'](command)
             # Check whether a command is reasonable.
-            if(self.check_a_command()):
+            if(command and self.check_a_command()):
                 raw_data = self._get_raw_data()
                 locals()[command.replace(' ', '_') + '_post_process'](raw_data)
 
         # Not allow to update CHARTS anymore
         self.definitions = CHARTS
         return data
-
+        

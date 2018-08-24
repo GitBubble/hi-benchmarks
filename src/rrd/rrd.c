@@ -107,8 +107,10 @@ inline RRDSET_TYPE rrdset_type_id(const char *name) {
     else if(unlikely(strcmp(name, RRDSET_TYPE_STACKED_NAME) == 0))
         return RRDSET_TYPE_STACKED;
 
-    else // if(unlikely(strcmp(name, RRDSET_TYPE_LINE_NAME) == 0))
+    else if(unlikely(strcmp(name, RRDSET_TYPE_LINE_NAME) == 0))
         return RRDSET_TYPE_LINE;
+    else 
+        return RRDSET_TYPE_STRING;
 }
 
 const char *rrdset_type_name(RRDSET_TYPE chart_type) {
@@ -122,6 +124,8 @@ const char *rrdset_type_name(RRDSET_TYPE chart_type) {
 
         case RRDSET_TYPE_STACKED:
             return RRDSET_TYPE_STACKED_NAME;
+        case RRDSET_TYPE_STRING:
+            return RRDSET_TYPE_STRING_NAME;
     }
 }
 

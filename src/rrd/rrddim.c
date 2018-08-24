@@ -324,6 +324,8 @@ void rrddim_free(RRDSET *st, RRDDIM *rd)
             freez(rd);
             break;
     }
+
+    if(rd->collected_string_value) freez(rd->collected_string_value);
 }
 
 
@@ -375,6 +377,22 @@ inline collected_number rrddim_set_by_pointer(RRDSET *st, RRDDIM *rd, collected_
     // fprintf(stderr, "%s.%s %llu " COLLECTED_NUMBER_FORMAT " dt %0.6f" " rate " CALCULATED_NUMBER_FORMAT "\n", st->name, rd->name, st->usec_since_last_update, value, (float)((double)st->usec_since_last_update / (double)1000000), (calculated_number)((value - rd->last_collected_value) * (calculated_number)rd->multiplier / (calculated_number)rd->divisor * 1000000.0 / (calculated_number)st->usec_since_last_update));
 
     return rd->last_collected_value;
+}
+
+inline char* rrddim_set_string_by_pointer(RRDSET *st, RRDDIM *rd, char* value) {
+    debug(D_RRD_CALLS, "rrddim_set_string_by_pointer() for chart %s, dimension %s, value %s." , st->name, rd->name, value);
+
+    now_realtime_timeval(&rd->last_collected_time);
+
+    rd->collected_string_value = NULL; 
+    free(rd->collected_string_value);  
+    rd->collected_string_value = value?strdup(value):NULL;
+    rd->updated = 1;
+    rd->collections_counter++;
+
+    // fprintf(stderr, "%s.%s %llu " COLLECTED_NUMBER_FORMAT " dt %0.6f" " rate " CALCULATED_NUMBER_FORMAT "\n", st->name, rd->name, st->usec_since_last_update, value, (float)((double)st->usec_since_last_update / (double)1000000), (calculated_number)((value - rd->last_collected_value) * (calculated_number)rd->multiplier / (calculated_number)rd->divisor * 1000000.0 / (calculated_number)st->usec_since_last_update));
+
+    return rd->collected_string_value;
 }
 
 collected_number rrddim_set(RRDSET *st, const char *id, collected_number value) {

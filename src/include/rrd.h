@@ -28,12 +28,14 @@ typedef struct rrdhost RRDHOST;
 typedef enum rrdset_type {
     RRDSET_TYPE_LINE    = 0,
     RRDSET_TYPE_AREA    = 1,
-    RRDSET_TYPE_STACKED = 2
+    RRDSET_TYPE_STACKED = 2,
+    RRDSET_TYPE_STRING  = 3
 } RRDSET_TYPE;
 
 #define RRDSET_TYPE_LINE_NAME "line"
 #define RRDSET_TYPE_AREA_NAME "area"
 #define RRDSET_TYPE_STACKED_NAME "stacked"
+#define RRDSET_TYPE_STRING_NAME "string"
 
 RRDSET_TYPE rrdset_type_id(const char *name);
 const char *rrdset_type_name(RRDSET_TYPE chart_type);
@@ -174,6 +176,9 @@ struct rrddim {
 
     collected_number collected_value;               // the current value, as collected - resets to 0 after being used
     collected_number last_collected_value;          // the last value that was collected, after being processed
+
+    char* collected_string_value;
+    //char* last_collected_string_value;
 
     // the *_volume members are used to calculate the accuracy of the rounding done by the
     // storage number - they are printed to debug.log when debug is enabled for a set.
@@ -707,6 +712,7 @@ extern int rrddim_hide(RRDSET *st, const char *id);
 extern int rrddim_unhide(RRDSET *st, const char *id);
 
 extern collected_number rrddim_set_by_pointer(RRDSET *st, RRDDIM *rd, collected_number value);
+extern char* rrddim_set_string_by_pointer(RRDSET *st, RRDDIM *rd, char* value);
 extern collected_number rrddim_set(RRDSET *st, const char *id, collected_number value);
 
 extern long align_entries_to_pagesize(RRD_MEMORY_MODE mode, long entries);
