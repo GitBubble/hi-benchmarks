@@ -4,6 +4,7 @@
 char *plugin_directories[PLUGINSD_MAX_DIRECTORIES] = { NULL };
 char *hibenchmarks_configured_plugins_dir_base;
 
+
 struct plugind *pluginsd_root = NULL;
 
 static inline int pluginsd_space(char c) {
@@ -159,7 +160,19 @@ inline size_t pluginsd_process(RRDHOST *host, struct plugind *cd, FILE *fp, int 
 
         if(likely(!simple_hash_strcmp(s, "SET", &hash))) {
             char *dimension = words[1];
-            char *value = words[2];
+            char * value = (char*)malloc(PLUGINSD_LINE_MAX);
+            if(st->chart_type == RRDSET_TYPE_STRING){
+                strcpy(value,words[2]);
+                //strcat(value,words[2]);
+                for(int i=3;i<PLUGINSD_MAX_WORDS;i++){
+                    if(words[i] == NULL) 
+                        break;
+                    strcat(value," ");
+                    strcat(value,words[i]);
+                    }
+                }
+            else 
+                value = words[2];
 
             if(unlikely(!dimension || !*dimension)) {
                 error("requested a SET on chart '%s' of host '%s', without a dimension. Disabling it.", st->id, host->hostname);
@@ -185,9 +198,18 @@ inline size_t pluginsd_process(RRDHOST *host, struct plugind *cd, FILE *fp, int 
                     enabled = 0;
                     break;
                 }
-                else
-                    rrddim_set_by_pointer(st, rd, strtoll(value, NULL, 0));
+                else{
+                    if(st->chart_type == RRDSET_TYPE_STRING){
+                        rrddim_set_string_by_pointer(st, rd, value);
+                    }
+                    else{
+                        rrddim_set_by_pointer(st, rd, strtoll(value, NULL, 0));
+                    } 
+                        
+                }
             }
+            value = NULL;
+            free(value);
         }
         else if(likely(hash == BEGIN_HASH && !strcmp(s, PLUGINSD_KEYWORD_BEGIN))) {
             char *id = words[1];
