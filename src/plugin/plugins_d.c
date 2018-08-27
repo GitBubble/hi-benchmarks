@@ -160,20 +160,24 @@ inline size_t pluginsd_process(RRDHOST *host, struct plugind *cd, FILE *fp, int 
 
         if(likely(!simple_hash_strcmp(s, "SET", &hash))) {
             char *dimension = words[1];
-            char * value = (char*)malloc(PLUGINSD_LINE_MAX);
+	    char *value;
+            //char * value_temp = (char*)malloc(PLUGINSD_LINE_MAX);
             if(st->chart_type == RRDSET_TYPE_STRING){
-                strcpy(value,words[2]);
+            	char * value_temp = (char*)malloc(PLUGINSD_LINE_MAX);
+                strcpy(value_temp,words[2]);
                 //strcat(value,words[2]);
                 for(int i=3;i<PLUGINSD_MAX_WORDS;i++){
                     if(words[i] == NULL) 
                         break;
-                    strcat(value," ");
-                    strcat(value,words[i]);
+                    strcat(value_temp," ");
+                    strcat(value_temp,words[i]);
                     }
-                }
-            else 
-                value = words[2];
-
+		value = value_temp;
+		free(value_temp);
+		value_temp = NULL;
+		}
+            else
+		value = words[2];
             if(unlikely(!dimension || !*dimension)) {
                 error("requested a SET on chart '%s' of host '%s', without a dimension. Disabling it.", st->id, host->hostname);
                 enabled = 0;
@@ -209,7 +213,6 @@ inline size_t pluginsd_process(RRDHOST *host, struct plugind *cd, FILE *fp, int 
                 }
             }
             value = NULL;
-            free(value);
         }
         else if(likely(hash == BEGIN_HASH && !strcmp(s, PLUGINSD_KEYWORD_BEGIN))) {
             char *id = words[1];
